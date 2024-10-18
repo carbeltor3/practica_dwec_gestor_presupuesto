@@ -6,7 +6,14 @@ let presupuesto = 0;
 
 function actualizarPresupuesto(valor) {
     // TODO
-    
+    valor = prompt("introduzca un valor");
+    if(valor>=0){
+        presupuesto = valor;
+    }else{
+        alert("numero menor que 0");
+        presupuesto = -1;
+    }
+    return presupuesto;
 }
 
 function mostrarPresupuesto() {
