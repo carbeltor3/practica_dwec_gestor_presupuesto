@@ -43,6 +43,11 @@ function CrearGasto(descripcion,valor) {
         this.actualizarDescripcion = function(descripcion){
             this.descripcion = descripcion;
         }
+        this.actualizarValor = function(valor){
+            if(valor>=0){
+                this.valor = valor;
+            }
+        }
 }
 
         
