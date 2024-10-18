@@ -1,23 +1,26 @@
 // TODO: Crear las funciones, objetos y variables indicadas en el enunciado
-valor = prompt("introduzca un valor");
+// valor = prompt("introduzca un valor");
 
 // TODO: Variable global
 let presupuesto = 0;
 
 function actualizarPresupuesto(valor) {
     // TODO
-    
-    if(valor>=0){
+    if(valor>=0) {
         presupuesto = valor;
-    }else{
-        alert("numero menor que 0");
+    }else if(valor<0){
         presupuesto = -1;
+    }else{
+      presupuesto = presupuesto;
     }
     return presupuesto;
 }
+        
+    
 
 function mostrarPresupuesto() {
     // TODO
+    
     let texto;
     texto = `Tu presupuesto actual es de ${presupuesto} €`;
     return texto;
