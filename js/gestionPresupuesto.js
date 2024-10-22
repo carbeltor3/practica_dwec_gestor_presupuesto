@@ -75,7 +75,8 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             
             return `Gasto correspondiente a ${descripcion} con valor ${valor} €.\n`+
             `Fecha: ${fechaLocal}\n`+
-            `Etiquetas:\n${this.etiquetas.map(etiqueta => `- ${etiqueta}`).join('\n')}`;
+            `Etiquetas:\n${salida}`;
+            
         }
 
         this.actualizarFecha = function(fecha){
@@ -87,7 +88,8 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
 
         this.borrarEtiquetas = function(...borrarEtiquetas){
             
-               this.etiquetas = this.etiquetas.filter(etiqueta =>!borrarEtiquetas.includes(etiqueta ))
+               this.etiquetas = this.etiquetas.filter(etiqueta =>!borrarEtiquetas.includes(etiqueta ));
+               
         }
 }
 
