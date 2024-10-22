@@ -81,7 +81,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     }
     
     function borrarGasto(id){
-        
+        gastos = gastos.filter(gasto => gasto.id !==id);
     }
         
     function calcularTotalGastos(){
