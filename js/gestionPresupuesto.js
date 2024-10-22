@@ -93,7 +93,9 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     }
         
     function calcularBalance(){
-    
+        
+        let balance = presupuesto - calcularTotalGastos();
+        return balance;
     }
         
     
