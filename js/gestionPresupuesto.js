@@ -42,6 +42,8 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             this.fecha = Date.parse(fecha);
         }
 
+        this.etiquetas = etiquetas.length ? etiquetas : [];
+
         
         
         
@@ -57,6 +59,14 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             if(valor>=0){
                 this.valor = valor;
             }
+        }
+
+        this.anyadirEtiquetas = function(...nuevasEtiquetas){
+            nuevasEtiquetas.forEach(etiqueta =>{
+                if(!this.etiquetas.includes(etiqueta)){
+                    this.etiquetas.push(etiqueta);
+                }
+            })
         }
 
         
