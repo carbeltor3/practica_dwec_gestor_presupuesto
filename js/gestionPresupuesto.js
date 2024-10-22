@@ -85,7 +85,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     }
         
     function calcularTotalGastos(){
-    
+        let totalGasto = 0;
+        for(let gasto of gastos){
+            totalGasto += gasto.valor;
+        }
+        return totalGasto;
     }
         
     function calcularBalance(){
