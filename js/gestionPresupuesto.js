@@ -68,17 +68,16 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                 }
             })
         }
-
-        
-
-    }
+}
 
     function listarGastos(){
         return gastos;
     }
     
     function anyadirGasto(gasto){
-        
+        gastos.push(gasto);
+        gasto.id =idGasto;
+        idGasto++;
     }
     
     function borrarGasto(id){
