@@ -68,6 +68,22 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                 }
             })
         }
+
+        this.mostrarGastoCompleto = function(){
+            const fechaLocal =new Date(fecha).toLocaleString();
+            const salida = this.etiquetas.map(etiqueta => `- ${etiqueta}`).join('\n');
+            
+            return `Gasto correspondiente a ${descripcion} con valor ${valor} €.\n`+
+            `Fecha: ${fechaLocal}\n`+
+            `Etiquetas:\n${this.etiquetas.map(etiqueta => `- ${etiqueta}`).join('\n')}`;
+        }
+
+        this.actualizarFecha = function(fecha){
+            const nuevaFecha = Date.parse(fecha);
+            if (!isNaN(nuevaFecha)){
+                this.fecha = nuevaFecha;
+            }
+        }
 }
 
     function listarGastos(){
