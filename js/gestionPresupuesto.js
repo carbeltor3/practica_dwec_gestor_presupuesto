@@ -71,7 +71,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
 
         this.mostrarGastoCompleto = function(){
             const fechaLocal =new Date(fecha).toLocaleString();
-            const salida = this.etiquetas.map(etiqueta => `- ${etiqueta}`).join('\n');
+            const salida = this.etiquetas.map(etiqueta => `- ${etiqueta}\n`).join('');
             
             return `Gasto correspondiente a ${descripcion} con valor ${valor} €.\n`+
             `Fecha: ${fechaLocal}\n`+
