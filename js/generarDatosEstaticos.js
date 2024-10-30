@@ -33,3 +33,5 @@ gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-1',gestion.filtrarGastos({fe
 gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-2',gestion.filtrarGastos({valorMinimo : 50}));
 gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-3',gestion.filtrarGastos({etiquetasTiene: ["seguros", ],valorMinimo: 200}));
 gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-4',gestion.filtrarGastos({etiquetasTiene: ["comida","transporte" ],valorMaximo:50}));
+
+gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-dia',gestion.agruparGastos("dia", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'día');

@@ -1,27 +1,20 @@
 import { agruparGastos, calcularTotalGastos } from "./gestionPresupuesto.js";
 
-function mostrarDatoEnId(idElemento,valor){
-    
+function mostrarDatoEnId(idElemento, valor) {
+
     let divPresupuesto = document.createElement('div');
-        divPresupuesto.id = idElemento;
-        divPresupuesto.textContent = valor;
-        document.body.appendChild(divPresupuesto);
+    divPresupuesto.id = idElemento;
+    divPresupuesto.textContent = valor;
+    document.body.appendChild(divPresupuesto);
 }
 
-function mostrarGastoWeb(idElemento,gastos){
-    //selecciono el elemento idElemento
-    // let elemento = document.getElementById(idElemento);
+function mostrarGastoWeb(idElemento, gastos) {
 
-    
-    // //creo el div y le agrego la clase gasto
-    // let divGasto = document.createElement('div');
-    // divGasto.classList.add ="idElemento";
-    // document.body.appendChild(divGasto);
-    
-    for(let gasto of gastos){
+
+    for (let gasto of gastos) {
         //creo el div y le agrego la clase idElemento
         let divGasto = document.createElement('div');
-        divGasto.id =idElemento;
+        divGasto.id = idElemento;
         document.body.appendChild(divGasto);
 
         let gastoDiv = document.createElement('div');
@@ -53,38 +46,43 @@ function mostrarGastoWeb(idElemento,gastos){
         gastoDiv.appendChild(GastoEtiquetas);
 
         //recorro las etiquetas y creo una clase gasto-etiquetas-etiquetas, añado su valor y lo añadimos a gasto-etiquetas
-        for(let etiqueta of gasto.etiquetas){
+        for (let etiqueta of gasto.etiquetas) {
             let etiquetaSpan = document.createElement('span');
             etiquetaSpan.classList.add('gasto-etiquetas-etiqueta');
             etiquetaSpan.textContent = etiqueta;
             GastoEtiquetas.appendChild(etiquetaSpan);
         }
-        
-    
+
+
         //por ultimo añadimos GastoEtiquetas a divGasto
         // GastoValor.appendChild(GastoEtiquetas);
     }
 }
-    
 
-function mostrarGastosAgrupadosWeb(idElemento,agrup,periodo){
-    let per = obtenerPeriodoAgrupacion(periodo);
 
-    let elemento = document.getElementById(idElemento);
-    if(elemento){
+function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
+    // let per = obtenerPeriodoAgrupacion(periodo);
     //creo el contenedor principal
+    let elemento = document.createElement('div');
+    elemento.id = idElemento;
+    document.body.appendChild(elemento);
+
     let divAgrupacion = document.createElement('div');
     divAgrupacion.classList.add("agrupacion");
+    elemento.appendChild(divAgrupacion);
 
     //creo el encabezado con su descripcion y lo añado al contenedor principal
-    let encabezado = divAgrupacion.appendChild('h1');
+    let encabezado = document.createElement('h1');
     encabezado.textContent = `Gastos agrupados por ${periodo}`;
+    divAgrupacion.appendChild(encabezado);
 
     //recorremos las propiedades de agrup
-    Object.entries(agrup).forEach(([clave,valor])=>{
-    
+    // Object.entries(agrup).forEach(([clave,valor])=>{
+    Object.entries(agrup).forEach(([clave, valor]) => {
+
         let divAgrupDato = document.createElement('div');
         divAgrupDato.classList.add("agrupacion-dato");
+        divAgrupacion.appendChild(divAgrupDato);
 
         let spanDatoClave = document.createElement('span');
         spanDatoClave.classList.add("agrupacion-dato-clave");
@@ -96,20 +94,18 @@ function mostrarGastosAgrupadosWeb(idElemento,agrup,periodo){
         spanDatoClave.textContent = valor;
         divAgrupDato.appendChild(spanDatoValor);
 
-        divAgrupacion.appendChild(divAgrupDato);
+        // divAgrupacion.appendChild(divAgrupDato);
     });
-        elemento.appendChild(divAgrupacion);
-    }else{
-        console.log(`elemento ${elemento} no encontrado`);
-}
-    
+    elemento.appendChild(divAgrupacion);
+
+
 }
 
 
-export{
+export {
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb
-    }
+}
 
-    
+
