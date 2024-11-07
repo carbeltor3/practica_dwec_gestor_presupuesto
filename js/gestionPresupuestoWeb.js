@@ -123,7 +123,7 @@ function actualizarPresupuestoWeb(){
     viejoBalance.remove();
     let presupuesto = parseInt(prompt("introduzca el presupuesto"));
     console.log ("el valor introducido es : " + presupuesto);
-    let nuevoPresupuesto = gestion.actualizarPresupuesto(3000);
+    let nuevoPresupuesto = gestion.actualizarPresupuesto(presupuesto);
     console.log(`Tu presupuesto actual es de : ${nuevoPresupuesto}`);
     gestion.mostrarPresupuesto(nuevoPresupuesto);
     gestion.calcularBalance();
@@ -141,9 +141,16 @@ function nuevoGastoWeb(){
     console.log(etiqueta);
     const etiquetas = etiqueta.split(',');
     console.log(etiquetas);
-    const gasto1 = gestion.CrearGasto(descripcion, valor, fecha, etiquetas);
+    const gasto1 = new gestion.CrearGasto(descripcion, valor, fecha, etiquetas);
     gestion.anyadirGasto(gasto1);
+    let viejoPresupuesto = document.getElementById('presupuesto');
+    viejoPresupuesto.remove();
+    let viejoGasto = document.getElementById('gastos-totales');
+    viejoGasto.remove();
+    let viejoBalance = document.getElementById('balance-total');
+    viejoBalance.remove();
     repintar();
+    
 
 
 }
