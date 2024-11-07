@@ -102,12 +102,50 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 }
 
 function repintar(){
-    
-    
-    
+    //limpiamos los contenido de #listado-gastos-completo
+    let viejoListadoGastos = document.querySelectorAll('#listado-gastos-completo');
+    viejoListadoGastos.forEach(function(div){
+        div.innerHTML=""});
+
     mostrarDatoEnId('presupuesto',gestion.mostrarPresupuesto());
     mostrarDatoEnId('gastos-totales',Math.trunc(gestion.calcularTotalGastos()));
     mostrarDatoEnId('balance-total',Math.trunc(gestion.calcularBalance()));
+    
+    mostrarDatoEnId('listado-gastos-completo',mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos({fechaDesde:"",fechaHasta:""})));
+}
+
+function actualizarPresupuestoWeb(){
+    let viejoPresupuesto = document.getElementById('presupuesto');
+    viejoPresupuesto.remove();
+    let viejoGasto = document.getElementById('gastos-totales');
+    viejoGasto.remove();
+    let viejoBalance = document.getElementById('balance-total');
+    viejoBalance.remove();
+    let presupuesto = parseInt(prompt("introduzca el presupuesto"));
+    console.log ("el valor introducido es : " + presupuesto);
+    let nuevoPresupuesto = gestion.actualizarPresupuesto(3000);
+    console.log(`Tu presupuesto actual es de : ${nuevoPresupuesto}`);
+    gestion.mostrarPresupuesto(nuevoPresupuesto);
+    gestion.calcularBalance();
+    repintar();
+}
+
+function nuevoGastoWeb(){
+    const descripcion = prompt("introduzca la descripcion del gasto");
+    console.log(descripcion);
+    const valor = Number(prompt("introduzca el importe del gasto"),10);
+    console.log(valor);
+    const fecha = Date.parse(prompt("introduzca la fecha del gasto en formato yyyy-mm-dd"));
+    console.log(fecha);
+    const etiqueta = prompt("introduzca las etiquetas separadas por comas");
+    console.log(etiqueta);
+    const etiquetas = etiqueta.split(',');
+    console.log(etiquetas);
+    const gasto1 = gestion.CrearGasto(descripcion, valor, fecha, etiquetas);
+    gestion.anyadirGasto(gasto1);
+    repintar();
+
+
 }
 
 
@@ -118,6 +156,8 @@ export {
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
+    actualizarPresupuestoWeb,
+    nuevoGastoWeb
     
 }
 

@@ -1,11 +1,9 @@
 import * as gestion from "./gestionPresupuesto.js";
 import * as gestionWeb from "./gestionPresupuestoWeb.js";
 
-
+//introducimos los datos de la aplicacion
 let presupuesto = gestion.actualizarPresupuesto(1500);
-let mostrarPresupuesto = gestion.mostrarPresupuesto();
-
-
+// let mostrarPresupuesto = gestion.mostrarPresupuesto();
 
 let gasto1 = new gestion.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
 gestion.anyadirGasto(gasto1);
@@ -20,32 +18,21 @@ gestion.anyadirGasto(gasto5);
 let gasto6 = new gestion.CrearGasto("Seguro coche", 195.78, "2021-10-06", "transporte", "seguros");
 gestion.anyadirGasto(gasto6);
 
-let gastosTotales = Math.trunc(gestion.calcularTotalGastos());
-let balance = Math.trunc(gestion.calcularBalance());
-let actualizarPresupuesto = document.getElementById('actualizarpresupuesto');
-
-actualizarPresupuesto.addEventListener('click',actualizarPresupuestoWeb);
-    
-
 gestionWeb.repintar();
 
-function actualizarPresupuestoWeb(){
-    let viejoPresupuesto = document.getElementById('presupuesto');
-    viejoPresupuesto.remove();
-    let viejoGasto = document.getElementById('gastos-totales');
-    viejoGasto.remove();
-    let viejoBalance = document.getElementById('balance-total');
-    viejoBalance.remove();
-    let presupuesto = parseInt(prompt("introduzca el presupuesto"));
-    console.log ("el valor introducido es : " + presupuesto);
-    let nuevoPresupuesto = gestion.actualizarPresupuesto(3000);
-    console.log(`Tu presupuesto actual es de : ${nuevoPresupuesto}`);
-    gestion.mostrarPresupuesto(nuevoPresupuesto);
-    gestion.calcularBalance();
-    gestionWeb.repintar()
+//definimos el boton y el manejador de eventos que llamara a actualizarPresupuestoWeb
+
+let actualizarPresupuesto = document.getElementById('actualizarpresupuesto');
+actualizarPresupuesto.addEventListener('click',gestionWeb.actualizarPresupuestoWeb);
+    
+let anyadirGasto = document.getElementById('anyadirgasto');
+anyadirGasto.addEventListener('click',gestionWeb.nuevoGastoWeb);
+
+
+
+
     
 
-}
 
 // gestionWeb.mostrarDatoEnId('presupuesto',mostrarPresupuesto);
 // gestionWeb.mostrarDatoEnId('gastos-totales',gastosTotales);
