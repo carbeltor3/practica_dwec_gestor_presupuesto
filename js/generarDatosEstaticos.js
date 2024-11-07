@@ -22,18 +22,41 @@ gestion.anyadirGasto(gasto6);
 
 let gastosTotales = Math.trunc(gestion.calcularTotalGastos());
 let balance = Math.trunc(gestion.calcularBalance());
+let actualizarPresupuesto = document.getElementById('actualizarpresupuesto');
 
+actualizarPresupuesto.addEventListener('click',actualizarPresupuestoWeb);
+    
 
-gestionWeb.mostrarDatoEnId('presupuesto',mostrarPresupuesto);
-gestionWeb.mostrarDatoEnId('gastos-totales',gastosTotales);
-gestionWeb.mostrarDatoEnId('balance-total',balance);
+gestionWeb.repintar();
 
-gestionWeb.mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos({fechaDesde:"",fechaHasta:""}));
-gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-1',gestion.filtrarGastos({fechaDesde: "2021-09-01",fechaHasta: "2021-09-30"}));
-gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-2',gestion.filtrarGastos({valorMinimo : 50}));
-gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-3',gestion.filtrarGastos({etiquetasTiene: ["seguros", ],valorMinimo: 200}));
-gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-4',gestion.filtrarGastos({etiquetasTiene: ["comida","transporte" ],valorMaximo:50}));
+function actualizarPresupuestoWeb(){
+    let viejoPresupuesto = document.getElementById('presupuesto');
+    viejoPresupuesto.remove();
+    let viejoGasto = document.getElementById('gastos-totales');
+    viejoGasto.remove();
+    let viejoBalance = document.getElementById('balance-total');
+    viejoBalance.remove();
+    let presupuesto = parseInt(prompt("introduzca el presupuesto"));
+    console.log ("el valor introducido es : " + presupuesto);
+    let nuevoPresupuesto = gestion.actualizarPresupuesto(3000);
+    console.log(`Tu presupuesto actual es de : ${nuevoPresupuesto}`);
+    gestion.mostrarPresupuesto(nuevoPresupuesto);
+    gestion.calcularBalance();
+    gestionWeb.repintar()
+    
 
-gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-dia',gestion.agruparGastos("dia", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'día');
-gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-mes',gestion.agruparGastos("mes", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'mes');
-gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-anyo',gestion.agruparGastos("anyo", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'año');
+}
+
+// gestionWeb.mostrarDatoEnId('presupuesto',mostrarPresupuesto);
+// gestionWeb.mostrarDatoEnId('gastos-totales',gastosTotales);
+// gestionWeb.mostrarDatoEnId('balance-total',balance);
+
+// gestionWeb.mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos({fechaDesde:"",fechaHasta:""}));
+// gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-1',gestion.filtrarGastos({fechaDesde: "2021-09-01",fechaHasta: "2021-09-30"}));
+// gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-2',gestion.filtrarGastos({valorMinimo : 50}));
+// gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-3',gestion.filtrarGastos({etiquetasTiene: ["seguros", ],valorMinimo: 200}));
+// gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-4',gestion.filtrarGastos({etiquetasTiene: ["comida","transporte" ],valorMaximo:50}));
+
+// gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-dia',gestion.agruparGastos("dia", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'día');
+// gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-mes',gestion.agruparGastos("mes", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'mes');
+// gestionWeb.mostrarGastosAgrupadosWeb('agrupacion-anyo',gestion.agruparGastos("anyo", ["casa","comida","supermercado","transporte","seguros"], "2020-05-26", "2021-10-08"),'año');

@@ -1,5 +1,5 @@
-import { agruparGastos, calcularTotalGastos } from "./gestionPresupuesto.js";
-
+import { agruparGastos, calcularBalance, calcularTotalGastos } from "./gestionPresupuesto.js";
+import * as gestion from "./gestionPresupuesto.js" ;
 function mostrarDatoEnId(idElemento, valor) {
 
     let divPresupuesto = document.createElement('div');
@@ -101,11 +101,24 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
 }
 
+function repintar(){
+    
+    
+    
+    mostrarDatoEnId('presupuesto',gestion.mostrarPresupuesto());
+    mostrarDatoEnId('gastos-totales',Math.trunc(gestion.calcularTotalGastos()));
+    mostrarDatoEnId('balance-total',Math.trunc(gestion.calcularBalance()));
+}
+
+
+
 
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    repintar,
+    
 }
 
 
