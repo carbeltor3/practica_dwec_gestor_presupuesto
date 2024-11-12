@@ -1,16 +1,15 @@
 import { agruparGastos, calcularBalance, calcularTotalGastos } from "./gestionPresupuesto.js";
 import * as gestion from "./gestionPresupuesto.js" ;
 function mostrarDatoEnId(idElemento, valor) {
-
     let divPresupuesto = document.createElement('div');
     divPresupuesto.id = idElemento;
     divPresupuesto.textContent = valor;
     document.body.appendChild(divPresupuesto);
-}
+    }
 
 function mostrarGastoWeb(idElemento, gastos) {
-
-
+    
+        
     for (let gasto of gastos) {
         //creo el div y le agrego la clase idElemento
         let divGasto = document.createElement('div');
@@ -20,38 +19,102 @@ function mostrarGastoWeb(idElemento, gastos) {
         let gastoDiv = document.createElement('div');
         gastoDiv.classList.add('gasto');
         divGasto.appendChild(gastoDiv);
+        gastoDiv.appendChild(document.createElement('br'));
 
-        //creo el div con la clase gasto-descripcion, le añado el texto descripcion y lo añado al div gasto
+       
+
+        //Mostrar descripcion
         let GastoDescripcion = document.createElement('div');
         GastoDescripcion.classList.add('gasto-descripcion');
         GastoDescripcion.textContent = gasto.descripcion;
         gastoDiv.appendChild(GastoDescripcion);
 
-        //creo el div con la clase gasto-fecha, le añado la fecha y lo añado al div gasto
+        //Mostrar la fecha
         let GastoFecha = document.createElement('div');
         GastoFecha.classList.add('gasto-fecha');
         GastoFecha.textContent = gasto.fecha;
         gastoDiv.appendChild(GastoFecha);
 
-        //creo el div con la clase gasto-valor, le añado su valor y lo añado al div gasto
+        //Mostrar valor
         let GastoValor = document.createElement('div');
         GastoValor.classList.add('gasto-valor');
         GastoValor.textContent = gasto.valor;
         gastoDiv.appendChild(GastoValor);
 
-        //creo el div con la clase gasto-etiquetas
+        //Mostrar etiquetas
         let GastoEtiquetas = document.createElement('div');
         GastoEtiquetas.classList.add('gasto-etiquetas');
         // GastoEtiquetas.textContent = gasto.etiquetas;
-        gastoDiv.appendChild(GastoEtiquetas);
+        // gastoDiv.appendChild(GastoEtiquetas);
+        // gastoDiv.appendChild(document.createElement('br'));
+
+        
+
+
 
         //recorro las etiquetas y creo una clase gasto-etiquetas-etiquetas, añado su valor y lo añadimos a gasto-etiquetas
         for (let etiqueta of gasto.etiquetas) {
+            
             let etiquetaSpan = document.createElement('span');
             etiquetaSpan.classList.add('gasto-etiquetas-etiqueta');
             etiquetaSpan.textContent = etiqueta;
+
+            // GastoEtiquetas.appendChild(etiquetaSpan);
+            
+            let borrarEtiquetas = new BorrarEtiquetasHandle();
+            borrarEtiquetas.datosGasto = gasto;
+            borrarEtiquetas.datosEtiqueta = etiqueta;
+            
+
+            
+            etiquetaSpan.addEventListener('click',borrarEtiquetas);
+            
             GastoEtiquetas.appendChild(etiquetaSpan);
+            GastoEtiquetas.appendChild(document.createTextNode("\u00a0"))
+            
+
         }
+        gastoDiv.appendChild(GastoEtiquetas);
+        gastoDiv.appendChild(document.createElement('br'));
+
+        
+
+        
+        
+
+        //creamos un boton editar para cada gasto
+        let editarBoton = document.createElement('button');
+        // aplicamos el type button el texto Editar y la clase gasto-editar
+        editarBoton.classList.add('gasto-editar');
+        editarBoton.setAttribute("type","button");
+        editarBoton.textContent = "Editar";
+        
+        // let editarManejador = Object.create(editarHandle);
+        let editarManejador = new editarHandle();
+        editarManejador.datosGasto = gasto;
+        
+        // Añadimos el objeto manejador de eventos al botón
+        editarBoton.addEventListener('click',editarManejador);
+
+        gastoDiv.appendChild(editarBoton);
+        
+
+
+        //creamos el boton borrar
+        let borrarBoton = document.createElement('button');
+        borrarBoton.classList.add('gasto-borrar');
+        borrarBoton.setAttribute("type","button");
+        borrarBoton.textContent = "Borrar";
+        
+        let borrarManejador = new BorrarHandle();
+        
+        borrarManejador.datosGasto = gasto;
+        borrarBoton.addEventListener('click',borrarManejador);
+        gastoDiv.appendChild(borrarBoton);
+        
+       
+        
+       
 
 
         //por ultimo añadimos GastoEtiquetas a divGasto
@@ -102,14 +165,17 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 }
 
 function repintar(){
-    //limpiamos los contenido de #listado-gastos-completo
     let viejoListadoGastos = document.querySelectorAll('#listado-gastos-completo');
     viejoListadoGastos.forEach(function(div){
         div.innerHTML=""});
-
     mostrarDatoEnId('presupuesto',gestion.mostrarPresupuesto());
     mostrarDatoEnId('gastos-totales',Math.trunc(gestion.calcularTotalGastos()));
     mostrarDatoEnId('balance-total',Math.trunc(gestion.calcularBalance()));
+    //limpiamos los contenido de #listado-gastos-completo
+    
+
+
+    
     
     mostrarDatoEnId('listado-gastos-completo',mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos({fechaDesde:"",fechaHasta:""})));
 }
@@ -122,25 +188,25 @@ function actualizarPresupuestoWeb(){
     let viejoBalance = document.getElementById('balance-total');
     viejoBalance.remove();
     let presupuesto = parseInt(prompt("introduzca el presupuesto"));
-    console.log ("el valor introducido es : " + presupuesto);
+    
     let nuevoPresupuesto = gestion.actualizarPresupuesto(presupuesto);
-    console.log(`Tu presupuesto actual es de : ${nuevoPresupuesto}`);
+    
     gestion.mostrarPresupuesto(nuevoPresupuesto);
     gestion.calcularBalance();
     repintar();
 }
 
 function nuevoGastoWeb(){
-    const descripcion = prompt("introduzca la descripcion del gasto");
-    console.log(descripcion);
-    const valor = Number(prompt("introduzca el importe del gasto"),10);
-    console.log(valor);
-    const fecha = Date.parse(prompt("introduzca la fecha del gasto en formato yyyy-mm-dd"));
-    console.log(fecha);
-    const etiqueta = prompt("introduzca las etiquetas separadas por comas");
-    console.log(etiqueta);
-    const etiquetas = etiqueta.split(',');
-    console.log(etiquetas);
+    let descripcion = prompt("introduzca la descripcion del gasto");
+    
+    let valor = Number(prompt("introduzca el importe del gasto"),10);
+    
+    let fecha =prompt("introduzca la fecha del gasto en formato yyyy-mm-dd");
+    
+    let etiqueta = prompt("introduzca las etiquetas separadas por comas");
+    
+    let etiquetas = etiqueta.split(',');
+    
     const gasto1 = new gestion.CrearGasto(descripcion, valor, fecha, etiquetas);
     gestion.anyadirGasto(gasto1);
     let viejoPresupuesto = document.getElementById('presupuesto');
@@ -149,11 +215,81 @@ function nuevoGastoWeb(){
     viejoGasto.remove();
     let viejoBalance = document.getElementById('balance-total');
     viejoBalance.remove();
+    
     repintar();
     
 
 
 }
+
+function editarHandle() {
+    this.handleEvent = function(gasto){
+        // this.datosGasto = gasto;
+        let viejoPresupuesto = document.getElementById('presupuesto');
+        viejoPresupuesto.remove();
+        let viejoGasto = document.getElementById('gastos-totales');
+        viejoGasto.remove();
+        let viejoBalance = document.getElementById('balance-total');
+        viejoBalance.remove();
+
+        gasto = this.datosGasto;
+        console.log("EditarHandle : " +this.datosGasto);
+        
+        let nuevaDescripcion = prompt("introduzca la descripcion del gasto",this.datosGasto.descripcion);
+        let nuevoValor = Number(prompt("introduzca el importe del gasto",this.datosGasto.valor),10);
+        
+        let nuevaFecha =prompt("introduzca la fecha del gasto en formato yyyy-mm-dd",this.datosGasto.fecha);
+        
+        let nuevasEtiquetas = prompt("introduzca las etiquetas separadas por comas",this.datosGasto.etiquetas);
+        
+        
+
+        //actualizamos las propiedades del gasto utilizando las funciones correspondientes
+        gasto.actualizarDescripcion(nuevaDescripcion);
+        gasto.actualizarValor(nuevoValor);
+        gasto.actualizarFecha(nuevaFecha);
+        if(nuevasEtiquetas !=""){
+            gasto.anyadirEtiquetas(nuevasEtiquetas.split(','));
+        }
+        
+        
+        repintar();
+    }
+} 
+function BorrarHandle(){
+    this.handleEvent = function(gasto){
+        let viejoPresupuesto = document.getElementById('presupuesto');
+        viejoPresupuesto.remove();
+        let viejoGasto = document.getElementById('gastos-totales');
+        viejoGasto.remove();
+        let viejoBalance = document.getElementById('balance-total');
+        viejoBalance.remove();
+        // this.datosGasto = gasto;
+        gasto = this.datosGasto;
+        console.log("BorrarHandle : " +this.datosGasto);
+        gestion.borrarGasto(gasto.id);
+        repintar();
+    }
+}
+
+function BorrarEtiquetasHandle(){
+    this.handleEvent = function(gasto,etiqueta){
+        console.log("se ha pulsado borrar etiquetas");
+        gasto = this.datosGasto;
+        // this.gasto = gasto;
+        etiqueta = this.datosEtiqueta;
+        // this.etiqueta = etiqueta;
+        
+        gasto.borrarEtiquetas(etiqueta);
+        repintar();
+    }
+}
+    
+
+    
+    
+    
+
 
 
 
@@ -164,8 +300,10 @@ export {
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
-    nuevoGastoWeb
-    
+    nuevoGastoWeb,
+    editarHandle,
+    BorrarHandle,
+    BorrarEtiquetasHandle
 }
 
 
