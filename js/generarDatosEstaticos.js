@@ -28,7 +28,8 @@ actualizarPresupuesto.addEventListener('click',gestionWeb.actualizarPresupuestoW
 let anyadirGasto = document.getElementById('anyadirgasto');
 anyadirGasto.addEventListener('click',gestionWeb.nuevoGastoWeb);
 
-
+let anyadirGastoFormulario = document.getElementById('anyadirgasto-formulario');
+anyadirGastoFormulario.addEventListener('click',gestionWeb.nuevoGastoWebFormulario);
 
 
     

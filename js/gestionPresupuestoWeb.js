@@ -284,6 +284,56 @@ function BorrarEtiquetasHandle(){
         repintar();
     }
 }
+
+function submitHandle(){
+    this.handleEvent = function(event){
+        event.preventDefault();
+        console.log(event.target.value);
+        
+    }
+}
+
+function nuevoGastoWebFormulario(){
+    //limpiamos los gastos actuales
+    let viejoPresupuesto = document.getElementById('presupuesto');
+    viejoPresupuesto.remove();
+    let viejoGasto = document.getElementById('gastos-totales');
+    viejoGasto.remove();
+    let viejoBalance = document.getElementById('balance-total');
+    viejoBalance.remove();
+    let viejoListadoGastos = document.querySelectorAll('#listado-gastos-completo');
+    viejoListadoGastos.forEach(function(div){
+        div.innerHTML=""});
+
+    let botonAnyadirGasto = document.createElement('button');
+    botonAnyadirGasto.textContent = "Añadir Gasto";
+    let botonEditarGasto = document.createElement('button');
+    botonEditarGasto.textContent = "Editar Gasto";
+
+    //creamos una copia del formulario y lo pintamos en interaccionHTML
+    let controlesprincipales = document.createElement('div');
+    controlesprincipales.id = "controlesprincipales";
+    document.body.append(controlesprincipales);
+    let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);;
+    document.body.append(document.createElement('br'));
+    controlesprincipales.append(plantillaFormulario);
+    //deshabilitamos el boton añadirGastoFormulario
+    let anyadirGastoFormulario = document.getElementById('anyadirgasto-formulario');
+    anyadirGastoFormulario.disabled = true;
+        debugger;
+    //accedemos al elemento form
+    var formulario = plantillaFormulario.querySelector("form");
+    let submit = new submitHandle();
+    document.querySelector('button').addEventListener('click',submit)
+    
+    
+    
+    
+    
+    
+    
+
+}
     
 
     
@@ -303,7 +353,8 @@ export {
     nuevoGastoWeb,
     editarHandle,
     BorrarHandle,
-    BorrarEtiquetasHandle
+    BorrarEtiquetasHandle,
+    nuevoGastoWebFormulario
 }
 
 

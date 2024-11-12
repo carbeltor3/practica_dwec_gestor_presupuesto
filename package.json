@@ -1,60 +1,25 @@
 {
-  
- "title": "DWEC - Práctica Gestor de Presupuesto",
-  
- "name": "practica_dwec_gestor_presupuesto",
-  
- "version": "1.0.0",
-  
- "scripts": {
-  
-   
- "test": "mocha",
-  
-   
- "test1": "mocha test/01_testIntroJSI.cy.js",
-  
-   
- "test2": "mocha test/02_testIntroJSII.cy.js",
-  
-   
- "test3": "mocha test/03_testIntroJSIII.cy.js",
-  
-   
- "test4": "cypress run -b chrome -s test/04_testInteraccionHTML.cy.js",
-  
-   
- "test5": "cypress run -b chrome -s test/05_testEventos.cy.js",
-  
-   
- "test6": "cypress run -b chrome -s test/06_testFormularios.cy.js",
-  
-   
- "test7": "cypress run -b chrome -s test/07_testRegexp.cy.js",
-  
-   
- "test8": "cypress run -b chrome -s test/08_testAlmacenamiento.cy.js"
-  
- },
-  
- "description": "Práctica de Gestión de Presupuestos del módulo de Desarrollo de Web en Entorno Cliente",
-  
- "license": "GPL-3.0",
-  
- "author": "Pedro Prieto",
-  
- "type": "module",
-  
- "devDependencies": {
-  
-   
- "chai": "^5.1.1",
-  
-   
- "cypress": "^13.15.2",
-  
-   
- "mocha": "^10.7.3"
-  
- }
+  "title": "DWEC - Práctica Gestor de Presupuesto",
+  "name": "practica_dwec_gestor_presupuesto",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha",
+    "test1": "mocha test/01_testIntroJSI.cy.js",
+    "test2": "mocha test/02_testIntroJSII.cy.js",
+    "test3": "mocha test/03_testIntroJSIII.cy.js",
+    "test4": "cypress run -b chrome -s test/04_testInteraccionHTML.cy.js",
+    "test5": "cypress run -b chrome -s test/05_testEventos.cy.js",
+    "test6": "cypress run -b chrome -s test/06_testFormularios.cy.js",
+    "test7": "cypress run -b chrome -s test/07_testRegexp.cy.js",
+    "test8": "cypress run -b chrome -s test/08_testAlmacenamiento.cy.js"
+  },
+  "description": "Práctica de Gestión de Presupuestos del módulo de Desarrollo de Web en Entorno Cliente",
+  "license": "GPL-3.0",
+  "author": "Pedro Prieto",
+  "type": "module",
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "cypress": "^13.15.2",
+    "mocha": "^10.7.3"
+  }
 }
