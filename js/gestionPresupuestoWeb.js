@@ -439,7 +439,46 @@ function cancelarHandle(){
 }
     
 
+  
+function filtrarGastosWeb(event) {
+    // Prevenir el envío del formulario para evitar recargar la página
+    event.preventDefault();
+
+    // Recoger los valores del formulario
+    const formulario = event.target; // El formulario que desencadenó el evento
+    const descripcion = formulario.querySelector("#formulario-filtrado-descripcion").value;
+    const valorMinimo = parseFloat(formulario.querySelector("#formulario-filtrado-valor-minimo").value) ;
+    const valorMaximo = parseFloat(formulario.querySelector("#formulario-filtrado-valor-maximo").value) ;
+    const fechaDesde = formulario.querySelector("#formulario-filtrado-fecha-desde").value;
+    const fechaHasta = formulario.querySelector("#formulario-filtrado-fecha-hasta").value;
+    const etiquetasCampo = formulario.querySelector("#formulario-filtrado-etiquetas-tiene").value;
+
+    // Crear el objeto de filtros
+    const filtros = {
+        descripcionContiene:descripcion,
+        valorMinimo: valorMinimo,
+        valorMaximo: valorMaximo,
+        fechaDesde: fechaDesde,
+        fechaHasta:fechaHasta
+    };
+
+    // Si hay etiquetas en el formulario, transformarlas
+    if (etiquetasCampo.trim() !== "") {
+        filtros.etiquetasTiene = gestion.transformarListadoEtiquetas(etiquetasCampo);
+    }
+
+    // Llamar a la función filtrarGastos con el objeto filtros
+    // const gastosFiltrados = gestion.filtrarGastos(filtros);
+
+    // Actualizar la lista de gastos en la interfaz
+    let viejoListadoGastos = document.querySelectorAll('#listado-gastos-completo');
+    viejoListadoGastos.forEach(function(div){
+        div.innerHTML=""});
     
+    
+    mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos(filtros));
+    
+}
     
     
 
@@ -457,7 +496,8 @@ export {
     editarHandle,
     BorrarHandle,
     BorrarEtiquetasHandle,
-    nuevoGastoWebFormulario
+    nuevoGastoWebFormulario,
+    filtrarGastosWeb
 }
 
 

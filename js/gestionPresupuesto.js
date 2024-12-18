@@ -179,7 +179,8 @@ function filtrarGastos(parametros) {
             resultado = resultado && (filtro.valor <= parametros.valorMaximo);
         }
         if (parametros.descripcionContiene) {
-            resultado = resultado && (filtro.descripcion.indexOf(parametros.descripcionContiene) > -1);
+            // resultado = resultado && (filtro.descripcion.indexOf(parametros.descripcionContiene.toLowerCase()) > -1);
+            resultado = resultado && (filtro.descripcion.toLowerCase().includes(parametros.descripcionContiene.toLowerCase()));
         }
 
         if (parametros.etiquetasTiene) {
@@ -212,7 +213,15 @@ function agruparGastos(periodo, etiquetasTiene, fechaDesde, fechaHasta) {
 }
 
  
-function tranformarListadoEtiquetas(){}
+function transformarListadoEtiquetas(cadena) {
+    // Expresión regular que detecta cualquier combinación de los separadores ",", ".", ":", ";", y espacio.
+    // La expresión sustituye cualquier secuencia de estos separadores por un solo espacio.
+    return cadena
+        .split(/[\s,.;:]+/)   // Dividimos por uno o más de los caracteres separadores mencionados
+        .map(etiqueta => etiqueta.trim())  // Eliminar posibles espacios antes o después de cada etiqueta
+        .filter(etiqueta => etiqueta.length > 0);  // Filtrar cualquier entrada vacía
+}
+
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -230,7 +239,7 @@ export {
     calcularBalance,
     filtrarGastos,
     agruparGastos,
-    tranformarListadoEtiquetas
+    transformarListadoEtiquetas
 }
 
 
