@@ -486,7 +486,18 @@ function guardarGastosWeb(){
    localStorage.setItem('GestorGastosDWEC',gastosJSON);
 } 
 
-
+function cargarGastosWeb(){
+    
+    const gastosJSON = localStorage.getItem('GestorGastosDWEC');
+    let gastos = [];
+    if (gastosJSON){
+        gastos = JSON.parse(gastosJSON);
+    }else{
+        gastos = [];
+    }
+    gestion.cargarGastos(gastos)
+    repintar();
+}
 
 
 
@@ -504,7 +515,8 @@ export {
     BorrarEtiquetasHandle,
     nuevoGastoWebFormulario,
     filtrarGastosWeb,
-    guardarGastosWeb
+    guardarGastosWeb,
+    cargarGastosWeb
 }
 
 

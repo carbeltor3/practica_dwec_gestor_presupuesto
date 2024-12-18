@@ -37,6 +37,8 @@ formularioFiltrado.addEventListener("submit", gestionWeb.filtrarGastosWeb);
 const guardarGastos = document.querySelector("#guardar-gastos");
 guardarGastos.addEventListener("click",gestionWeb.guardarGastosWeb);
 
+const cargarGastos = document.querySelector("#cargar-gastos");
+cargarGastos.addEventListener("click",gestionWeb.cargarGastosWeb);
     
 
 
