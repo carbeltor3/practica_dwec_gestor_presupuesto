@@ -34,6 +34,8 @@ anyadirGastoFormulario.addEventListener('click',gestionWeb.nuevoGastoWebFormular
 const formularioFiltrado = document.querySelector("#formulario-filtrado");
 formularioFiltrado.addEventListener("submit", gestionWeb.filtrarGastosWeb);
 
+const guardarGastos = document.querySelector("#guardar-gastos");
+guardarGastos.addEventListener("click",gestionWeb.guardarGastosWeb);
 
     
 

@@ -480,7 +480,13 @@ function filtrarGastosWeb(event) {
     
 }
     
-    
+function guardarGastosWeb(){
+
+   const gastosJSON = JSON.stringify(gestion.listarGastos());
+   localStorage.setItem('GestorGastosDWEC',gastosJSON);
+} 
+
+
 
 
 
@@ -497,7 +503,8 @@ export {
     BorrarHandle,
     BorrarEtiquetasHandle,
     nuevoGastoWebFormulario,
-    filtrarGastosWeb
+    filtrarGastosWeb,
+    guardarGastosWeb
 }
 
 
