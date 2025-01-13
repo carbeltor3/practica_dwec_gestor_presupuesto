@@ -2,8 +2,7 @@ import * as gestion from "./gestionPresupuesto.js";
 import * as gestionWeb from "./gestionPresupuestoWeb.js";
 
 //introducimos los datos de la aplicacion
-let presupuesto = gestion.actualizarPresupuesto(1500);
-// let mostrarPresupuesto = gestion.mostrarPresupuesto();
+gestion.actualizarPresupuesto(1500);
 
 let gasto1 = new gestion.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
 gestion.anyadirGasto(gasto1);
@@ -23,28 +22,30 @@ gestionWeb.repintar();
 //definimos el boton y el manejador de eventos que llamara a actualizarPresupuestoWeb
 
 let actualizarPresupuesto = document.getElementById('actualizarpresupuesto');
-actualizarPresupuesto.addEventListener('click',gestionWeb.actualizarPresupuestoWeb);
-    
+actualizarPresupuesto.addEventListener('click', gestionWeb.actualizarPresupuestoWeb);
+
 let anyadirGasto = document.getElementById('anyadirgasto');
-anyadirGasto.addEventListener('click',gestionWeb.nuevoGastoWeb);
+anyadirGasto.addEventListener('click', gestionWeb.nuevoGastoWeb);
 
 let anyadirGastoFormulario = document.getElementById('anyadirgasto-formulario');
-anyadirGastoFormulario.addEventListener('click',gestionWeb.nuevoGastoWebFormulario);
+anyadirGastoFormulario.addEventListener('click', gestionWeb.nuevoGastoWebFormulario);
 
 const formularioFiltrado = document.querySelector("#formulario-filtrado");
 formularioFiltrado.addEventListener("submit", gestionWeb.filtrarGastosWeb);
 
 const guardarGastos = document.querySelector("#guardar-gastos");
-guardarGastos.addEventListener("click",gestionWeb.guardarGastosWeb);
+guardarGastos.addEventListener("click", gestionWeb.guardarGastosWeb);
 
 const cargarGastos = document.querySelector("#cargar-gastos");
-cargarGastos.addEventListener("click",gestionWeb.cargarGastosWeb);
-    
+cargarGastos.addEventListener("click", gestionWeb.cargarGastosWeb);
+
+document.querySelector('#cargar-gastos-api').addEventListener('click',gestionWeb.cargarGastosApi)
 
 
-// gestionWeb.mostrarDatoEnId('presupuesto',mostrarPresupuesto);
-// gestionWeb.mostrarDatoEnId('gastos-totales',gastosTotales);
-// gestionWeb.mostrarDatoEnId('balance-total',balance);
+
+// gestionWeb.mostrarDatoEnId('presupuesto',gestion.mostrarPresupuesto());
+// gestionWeb.mostrarDatoEnId('gastos-totales',Math.trunc(gestion.calcularTotalGastos()));
+// gestionWeb.mostrarDatoEnId('balance-total',Math.trunc(gestion.calcularBalance()));
 
 // gestionWeb.mostrarGastoWeb('listado-gastos-completo',gestion.filtrarGastos({fechaDesde:"",fechaHasta:""}));
 // gestionWeb.mostrarGastoWeb('listado-gastos-filtrado-1',gestion.filtrarGastos({fechaDesde: "2021-09-01",fechaHasta: "2021-09-30"}));
