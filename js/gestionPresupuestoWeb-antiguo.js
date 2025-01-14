@@ -92,16 +92,6 @@ function mostrarGastoWeb(idElemento, gastos) {
         borrarBoton.addEventListener('click', borrarManejador);
         gastoDiv.appendChild(borrarBoton);
 
-        //creamos el boton borrar-api
-        let borrarBotonApi = document.createElement('button');
-        borrarBotonApi.classList.add('gasto-borrar-api');
-        borrarBotonApi.setAttribute("type","button");
-        borrarBotonApi.textContent = "Borrar (API)";
-        let borrarManejadorApi = new BorrarApiHandle();
-        borrarManejadorApi.datosGasto = gasto;
-        borrarBotonApi.addEventListener('click',borrarManejadorApi);
-        gastoDiv.appendChild(borrarBotonApi);
-
         //creamos el boton editar (formulario)
         let editarFormularioBoton = document.createElement('button');
         editarFormularioBoton.classList.add('gasto-editar-formulario');
@@ -280,49 +270,6 @@ function BorrarEtiquetasHandle() {
     }
 }
 
-function BorrarApiHandle(){
-    this.handleEvent = function (gasto){
-        console.log("se ha pulsado borrar etiquetas");
-        gasto = this.datosGasto;
-        const usuario = document.querySelector('#nombre_usuario').value;
-        console.log(gasto);
-        const gastoId = gasto.gastoId;
-        
-        
-
-        if (!usuario || !gastoId ) {
-            console.error('El nombre de usuario o el gastoId son inválidos');
-            return;
-          }
-        
-        // Construir la URL de la API con el nombre de usuario y gastoId
-        const url = `https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/${usuario}/${gastoId}`;
-
-        // Realizar la solicitud DELETE
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-            console.log(`Gasto con ID ${gastoId} borrado correctamente.`);
-            // Llamar a la función cargarGastosApi para actualizar la lista de gastos
-            cargarGastosApi();
-            } else {
-            console.error('Error al borrar el gasto.');
-            }
-        })
-        .catch(error => {
-            console.error('Error en la solicitud DELETE:', error);
-        });
-    }
-        
-
-    }
-
-
 function submitHandle() {
     this.handleEvent = function (event) {
         event.preventDefault();
@@ -376,10 +323,9 @@ function etitarFormularioHandle() {
         // formulario.setAttribute('id', `form_${this.datosGasto.id}`);
         formulario.elements.descripcion.value = this.datosGasto.descripcion;
         formulario.elements.valor.value = this.datosGasto.valor;
-        formulario.elements.fecha.value = this.datosGasto.fecha ;
+        formulario.elements.fecha.value = this.datosGasto.fecha;
         formulario.elements.etiquetas.value = this.datosGasto.etiquetas;
 
-        // Boton Enviar
         //modificamos cualquier campo y mandamos a actualizar los datos
         let enviar = formulario.querySelector('button[type="submit"]');
         let enviarFormularioManejador = new submitHandleEditarFormulario();
@@ -387,78 +333,16 @@ function etitarFormularioHandle() {
         enviar.addEventListener('click', enviarFormularioManejador)
         document.querySelector('form').addEventListener('submit', enviarFormularioManejador);
 
-        //pulsamos al boton Enviar (Api)
-        // modificamos cualquier campo y mandamos a actualizar los datos a la api
-        let modificarApi = formulario.querySelector('.gasto-enviar-api');
-        let enviarFormularioApiManejador = new EditarFormularioApiHandle();
-        enviarFormularioApiManejador.datosGasto = this.datosGasto;
-        modificarApi.addEventListener('click',enviarFormularioApiManejador);
 
-        //pulsamos al boton Cancelar
         let cerrar = formulario.querySelector('button.cancelar');
         cerrar.addEventListener('click', function () {
             formulario.remove();
-            //activar todos los botones del formulario
+            let btnEditarFormulario = elmBoton.parentElement.querySelector('.gasto-editar-formulario');
             btnEditarFormulario.disabled = false;
         })
 
-        
-
-
     }
 }
-
-function EditarFormularioApiHandle(){
-    
-        this.handleEvent = function(event){
-            const formulario = event.target.parentNode;
-            const usuario = document.getElementById('nombre_usuario');
-            const descripcion = formulario.elements.descripcion.value;
-            console.log(descripcion);
-            const valor = Number(formulario.elements.valor.value);
-            console.log(valor);
-            const fecha = formulario.elements.fecha.value;
-            console.log(fecha);
-            const etiquetas = (formulario.elements.etiquetas.value).split(',');
-            console.log(etiquetas);
-            const gastoId = this.datosGasto.gastoId;
-            console.log(gastoId);
-    
-            const gasto = {
-                // "gastoId" : gastoId,
-                "valor": valor,
-                "descripcion" : descripcion,
-                "usuario" : usuario,
-                "fecha": fecha,
-                "etiquetas":etiquetas
-    
-            }
-    
-            const url = `https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/carlosbeltran/${gastoId}`;
-    
-            fetch(url, {
-                method: 'PUT', // Método de la solicitud
-                headers: {
-                    'Access-Control-Allow-Headers':'Origin',
-                    'Access-Control-Allow-Origin':'http://127.0.0.1:5500/',
-                    'Content-Type': 'application/json;charset=utf-8'
-                  },
-                  body: JSON.stringify(gasto)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('datos modificados correctamente');
-                    // Si la respuesta es correcta, actualizar la lista de gastos
-                    cargarGastosApi(); // Llamar a la función para cargar los gastos desde la API
-                } else {
-                    // Si la respuesta no es exitosa, mostrar un mensaje de error
-                    alert('Hubo un error al modificar el gasto.');
-                }
-            })
-    
-        }
-    }
-
 
 function submitHandleEditarFormulario() {
     this.handleEvent = function (event) {
@@ -501,58 +385,8 @@ function nuevoGastoWebFormulario() {
 
     document.querySelector('button[type="submit"]').addEventListener('click', submit);
     document.querySelector('form').addEventListener('submit', submit);
-    //añadir gasto a la api
-    let submitApi = new submitApiHandle();
-    document.querySelector('button[class="gasto-enviar-api"]').addEventListener('click',submitApi);
-
     let cancelar = new cancelarHandle();
     document.querySelector('button[class="cancelar"]').addEventListener('click', cancelar);
-
-}
-
-function submitApiHandle(){
-    this.handleEvent = function(event){
-        const formulario = event.target.parentNode;
-        const usuario = document.getElementById('nombre_usuario');
-        const descripcion = formulario.elements.descripcion.value;
-        console.log(descripcion);
-        const valor = Number(formulario.elements.valor.value);
-        console.log(valor);
-        const fecha = formulario.elements.fecha.value;
-        console.log(fecha);
-        const etiquetas = (formulario.elements.etiquetas.value).split(',');
-        console.log(etiquetas);
-
-        const gasto = {
-            "valor": valor,
-            "descripcion" : descripcion,
-            "usuario" : usuario,
-            "fecha": fecha,
-            "etiquetas":etiquetas
-
-        }
-
-        const url = "https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/carlosbeltran";
-
-        fetch(url, {
-            method: 'POST', // Método de la solicitud
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-              },
-              body: JSON.stringify(gasto)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('datos insertados correctamente');
-                // Si la respuesta es correcta, actualizar la lista de gastos
-                cargarGastosApi(); // Llamar a la función para cargar los gastos desde la API
-            } else {
-                // Si la respuesta no es exitosa, mostrar un mensaje de error
-                alert('Hubo un error al insertar el gasto.');
-            }
-        })
-
-    }
 }
 
 function cancelarHandle() {
@@ -628,28 +462,6 @@ function cargarGastosWeb() {
     repintar();
 }
 
-function cargarGastosApi(){
-    let usuario = document.querySelector('#nombre_usuario').value;
-    console.log(usuario);
-    fetch(`https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/${usuario}`)
-        .then(response => {
-            if(!response.ok){
-                throw new Error('Error al obtener los gastos');
-            }
-            return response.json();
-        })
-        .then(data => {
-            gestion.cargarGastos(data);
-        repintar();
-        console.log('gastos cargados');
-        })
-        .catch(error =>{
-            console.error('Hubo un problema con la solicitud fetch:',error);
-            alert('Hubo un problema al cargar los gastos.');
-        });
-
-}
-
 
 
 
@@ -667,8 +479,7 @@ export {
     nuevoGastoWebFormulario,
     filtrarGastosWeb,
     guardarGastosWeb,
-    cargarGastosWeb,
-    cargarGastosApi
+    cargarGastosWeb
 }
 
 

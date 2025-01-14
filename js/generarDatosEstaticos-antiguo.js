@@ -39,8 +39,6 @@ guardarGastos.addEventListener("click", gestionWeb.guardarGastosWeb);
 const cargarGastos = document.querySelector("#cargar-gastos");
 cargarGastos.addEventListener("click", gestionWeb.cargarGastosWeb);
 
-document.querySelector('#cargar-gastos-api').addEventListener('click',gestionWeb.cargarGastosApi)
-
 
 
 // gestionWeb.mostrarDatoEnId('presupuesto',gestion.mostrarPresupuesto());
