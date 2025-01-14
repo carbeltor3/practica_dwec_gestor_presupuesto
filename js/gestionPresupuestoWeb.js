@@ -428,7 +428,7 @@ function EditarFormularioApiHandle(){
                 // "gastoId" : gastoId,
                 "valor": valor,
                 "descripcion" : descripcion,
-                "usuario" : usuario,
+                // "usuario" : usuario,
                 "fecha": fecha,
                 "etiquetas":etiquetas
     
@@ -439,11 +439,6 @@ function EditarFormularioApiHandle(){
             fetch(url, {
                 method: 'PUT', // Método de la solicitud
                 headers: {
-
-                    'Access-Control-Allow-Headers':'Origin',
-                    'Access-Control-Allow-Origin':'http://127.0.0.1:5500/',
-
-                    'Access-Control-Allow-Origin':'*',
 
                     'Content-Type': 'application/json;charset=utf-8'
                   },
