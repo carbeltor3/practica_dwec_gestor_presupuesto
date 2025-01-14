@@ -439,8 +439,12 @@ function EditarFormularioApiHandle(){
             fetch(url, {
                 method: 'PUT', // Método de la solicitud
                 headers: {
+
                     'Access-Control-Allow-Headers':'Origin',
                     'Access-Control-Allow-Origin':'http://127.0.0.1:5500/',
+
+                    'Access-Control-Allow-Origin':'*',
+
                     'Content-Type': 'application/json;charset=utf-8'
                   },
                   body: JSON.stringify(gasto)
